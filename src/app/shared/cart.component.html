@@ -1,0 +1,68 @@
+<div class="card">
+    <div class="card-header gb-info">
+        {{pageTitle}}
+    </div>
+    <div class='card-body'>
+        <div *ngIf='cart.length === 0'
+             class="alert alert-info">Cart is empty</div>
+        <div class='row'
+             *ngIf='cart.length > 0'
+             class="list-group">
+            <div class='col-md-8'>
+                <div class='row'
+                     *ngFor='let item of cart'>
+                    <div class='col-md-4'>Product Name:</div>
+                    <div class='col-md-8'>{{item.product.productName}}</div>
+
+                    <div class='col-md-4'>Quantity:</div>
+                    <div class='col-md-8'>{{item.prodQuantity}}</div>
+
+                    <div class='col-md-4'>Cost of each product:</div>
+                    <div class='col-md-8'>{{item.product.price | currency: 'GBP'}}</div>
+
+
+
+
+                    <div class='col-md-4'>Price:</div>
+                    <div class='col-md-8'>{{item.product.price * item.prodQuantity | currency: 'GBP'}}</div>
+
+                    <div class='col-md-4'></div>
+                    <div class='col-md-8'>
+                        <button class="btn btn-outline-secondary"
+                        (click)='deleteItem(item.product.productId)'
+                        style='width: 100px;'>
+                    <i class='fa fa-chevron'></i> Remove
+                </button>
+                    </div>
+
+
+                    <div class='col-md-4'>-------------------------------</div>
+                    <div class='col-md-8'></div>
+
+                </div>
+
+                <ul>
+
+                    <li class="list-group-item ">
+                        <strong>Total: {{total | currency: 'GBP'}}</strong>
+
+
+                    </li>
+                    <li class="list-group-item ">
+                        <strong>VAT: 20%</strong>
+                    </li>
+
+                    <li class="list-group-item active">
+                        <strong>Total after taxes: {{(total * 20) /100 + total | currency: 'GBP'}}</strong>
+                    </li>
+                </ul>
+
+
+                <div class="card-footer">
+                    <button class="btn btn-primary"
+                            (click)='placeOrder()'
+                            style='width: 150px;'>
+                        <i class='fa fa-chevron'></i> Place order
+                    </button>
+                </div>
+            </div>
